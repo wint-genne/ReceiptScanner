@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReceiptScanner.Parser;
@@ -85,6 +86,18 @@ medtag aiitid vara och kvitto.
             var receipt = ReceiptParser.ParseReceiptText(parsedText);
             Assert.AreEqual((decimal)902.12, receipt.Total);
             Assert.AreEqual(2, receipt.Items.First().Quantity);
+        }
+
+        [TestMethod]
+        [DeploymentItem("bild (1).jpg")]
+        [DeploymentItem("x64", "x64")]
+        [DeploymentItem("x86", "x86")]
+        [DeploymentItem("tessdata", "bin\\tessdata")]
+        public void TestMobilePhoto()
+        {
+            var photo = "bild (1).jpg";
+            var receipt = ReceiptParser.Parse(File.ReadAllBytes(photo));
+            Assert.IsTrue(receipt.Total > 0);
         }
     }
 }

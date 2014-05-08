@@ -1,18 +1,4 @@
-﻿function serializeFileUploaderContent(obj, callback) {
-    var fileReader = new FileReader();
-    fileReader.onloadend = function() {
-        callback(this.result.substring("data:image/jpeg;base64,".length));
-    };
-    fileReader.readAsDataURL(obj[0].files[0]);
-
-    var val = obj.val();
-    return val;
-}
-
-function progressHandlingFunction(e) {
-    if (e.lengthComputable) {
-        $('progress').attr({ value: e.loaded, max: e.total });
-    }
+﻿function ShopItem(receipt) {
 }
 
 function RSViewModel() {
@@ -32,6 +18,10 @@ function RSViewModel() {
         if (this.selectedReceipt() == receipt) this.selectedReceipt(null);
     };
 
+    this.saveReceiptItem = function(receiptItem) {
+        $.put("/api/receiptItems" + receiptItem.id, receiptItem);
+    };
+
     var self = this;
 
     $("#file-uploader").change(function() {
@@ -39,13 +29,6 @@ function RSViewModel() {
         {
             url: "/api/receipts",
             type: 'POST',
-            xhr: function () {  // Custom XMLHttpRequest
-                var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) { // Check if upload property exists
-                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
-                }
-                return myXhr;
-            },
             data: new FormData($("#file-uploader").closest("form")[0]),
             success: function (receipt) {
                 self.receipts.push(receipt);

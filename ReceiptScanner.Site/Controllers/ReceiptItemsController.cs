@@ -14,5 +14,15 @@ namespace ReceiptScanner.Site.Controllers
         {
             return new RSContext().Receipts.Where(r => r.Id == receiptId).SelectMany(r => r.Items).ToArray();
         }
+
+        public void Put(int receiptId, ReceiptItem item)
+        {
+            var rsContext = new RSContext();
+            var receiptItem = rsContext.ReceiptItems.Find(receiptId);
+            receiptItem.Name = item.Name;
+            receiptItem.Quantity = item.Quantity;
+            receiptItem.Price = item.Price;
+            rsContext.SaveChanges();
+        }
     }
 }
