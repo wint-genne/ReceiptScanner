@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptScanner", "ReceiptScanner\ReceiptScanner.csproj", "{97241BA4-5AE8-4E7A-9DBA-BC32C46AD122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptScanner.Site", "ReceiptScanner.Site\ReceiptScanner.Site.csproj", "{AF5554D5-5BA4-4725-BF42-DF31D9145768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptScanner.EF", "ReceiptScanner.EF\ReceiptScanner.EF.csproj", "{016C6D3D-5C28-47F4-AC92-F92E54683A77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptScanner.Parser", "ReceiptScanner.Parser\ReceiptScanner.Parser.csproj", "{C6D80182-77E7-4988-A026-EEDB53EA8B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptScanner.Tests", "ReceiptScanner.Tests\ReceiptScanner.Tests.csproj", "{CF57A77D-32BF-44F6-BFA8-B182077A3127}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97241BA4-5AE8-4E7A-9DBA-BC32C46AD122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97241BA4-5AE8-4E7A-9DBA-BC32C46AD122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97241BA4-5AE8-4E7A-9DBA-BC32C46AD122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97241BA4-5AE8-4E7A-9DBA-BC32C46AD122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF5554D5-5BA4-4725-BF42-DF31D9145768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF5554D5-5BA4-4725-BF42-DF31D9145768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF5554D5-5BA4-4725-BF42-DF31D9145768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF5554D5-5BA4-4725-BF42-DF31D9145768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016C6D3D-5C28-47F4-AC92-F92E54683A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016C6D3D-5C28-47F4-AC92-F92E54683A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016C6D3D-5C28-47F4-AC92-F92E54683A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016C6D3D-5C28-47F4-AC92-F92E54683A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D80182-77E7-4988-A026-EEDB53EA8B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D80182-77E7-4988-A026-EEDB53EA8B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D80182-77E7-4988-A026-EEDB53EA8B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D80182-77E7-4988-A026-EEDB53EA8B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF57A77D-32BF-44F6-BFA8-B182077A3127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF57A77D-32BF-44F6-BFA8-B182077A3127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF57A77D-32BF-44F6-BFA8-B182077A3127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF57A77D-32BF-44F6-BFA8-B182077A3127}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
