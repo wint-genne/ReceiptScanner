@@ -11,8 +11,9 @@ namespace ReceiptScanner.Parser
 {
     public static class ReceiptParser
     {
-        private const string DecimalRegexp = @"-?\d+(?:,\d\d+)?";
-        private const string UnitRegexp = "[kg|ml|st]";
+        private const string DecimalRegexp = @"-?\d+(?:,\d+)?";
+        private const string PriceRegexp = @"-?\d+,\d\d";
+        private const string UnitRegexp = "(?:kg|ml|st)";
 
         internal enum ParseMode
         {
@@ -34,11 +35,11 @@ namespace ReceiptScanner.Parser
             AddReplacement('l', '1');
             AddReplacement('o', '0');
             AddReplacement('-', '\"');
-            AddReplacement('*', 'w', 'r');
+            AddReplacement('*', 'w', 'r', 'x', '«');
             AddReplacement('s', '5');
 
-            QuantityPriceRegexp = CreateRegexp("(" + DecimalRegexp + ")" + UnitRegexp + "\\*(" + DecimalRegexp + ")Kr/" + UnitRegexp);
-            ShopItemRegexp = CreateRegexp(string.Format(@"(.+)\s+(?:({0}){1}\*{0}\s+)?({0})$", DecimalRegexp, UnitRegexp));
+            QuantityPriceRegexp = CreateRegexp(string.Format("({0}){1}\\*({2})Kr/{1}", DecimalRegexp, UnitRegexp, PriceRegexp));
+            ShopItemRegexp = CreateRegexp(string.Format(@"^(.+?)\s+(?:({0}){1}\*{2}\s+)?({2})$", DecimalRegexp, UnitRegexp, PriceRegexp));
 
             TotalRegexp = CreateRegexp(@"(?:TOTAL|Mottaget Kontokort)\s+(" + DecimalRegexp + ")");
             AccountNumberRegexp = CreateRegexp(@"KONTONUMMER:\s+(\d.*\d\d\d\d)");
@@ -146,6 +147,11 @@ namespace ReceiptScanner.Parser
                     replaced += "]";
                     fixedRegexp += replaced;
                 }
+                else if (prevC == '\\' && c == 'd')
+                {
+                    fixedRegexp = fixedRegexp.Remove(fixedRegexp.Length - 1);
+                    fixedRegexp += @"(?:\d|O)";
+                }
                 else
                 {
                     fixedRegexp += c;
@@ -170,18 +176,32 @@ namespace ReceiptScanner.Parser
                 return false;
             }
 
-            receiptItems.Add(new ReceiptItem
-                {
-                    Name = match.Groups[1].Value,
-                    Price = ParseDecimal(match.Groups[3].Value),
-                    Quantity = match.Groups[2].Success ? ParseDecimal(match.Groups[2].Value) : 1
-                });
+            var receiptItem = new ReceiptItem
+            {
+                Name = match.Groups[1].Value,
+                Price = ParseDecimal(match.Groups[3].Value),
+                Quantity = match.Groups[2].Success ? ParseDecimal(match.Groups[2].Value) : 1
+            };
+
+            if (receiptItem.Price < 0)
+            {
+                AddDiscount(receiptItems, receiptItem);
+            }
+            else
+            {
+                receiptItems.Add(receiptItem);
+            }
             return true;
+        }
+
+        private static void AddDiscount(ICollection<ReceiptItem> receiptItems, ReceiptItem receiptItem)
+        {
+            receiptItems.Last().Price += receiptItem.Price;
         }
 
         private static decimal ParseDecimal(string priceString)
         {
-            return decimal.Parse(priceString.Replace("\"", "-"));
+            return decimal.Parse(priceString.Replace("\"", "-").Replace("--", "-"));
         }
     }
 }
