@@ -1,0 +1,12 @@
+.starter-template {
+  padding: 40px 15px;
+}
+.selectable {
+  cursor: pointer;
+}
+.selectable:hover {
+  background: #e6e6e6;
+}
+.selectable.selected {
+  background: #cccccc;
+}

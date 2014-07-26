@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReceiptScanner.EF
 {
@@ -11,7 +12,9 @@ namespace ReceiptScanner.EF
 
         public ShopItem ShopItem { get; set; }
 
+        [ForeignKey("Receipt_Id")]
         [Required]
         public Receipt Receipt { get; set; }
+        public int Receipt_Id { get; set; }
     }
 }

@@ -1,3 +1,16 @@
 ﻿.starter-template {
     padding: 40px 15px;
 }
+
+.selectable
+{
+    cursor: pointer;
+    &:hover
+    {
+        background: darken(white, 10%);
+    }
+    &.selected
+    {
+        background: darken(white, 20%);
+    }
+}

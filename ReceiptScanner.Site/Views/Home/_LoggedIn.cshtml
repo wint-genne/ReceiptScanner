@@ -1,0 +1,61 @@
+﻿<a class="btn btn-primary btn-lg" data-bind="click: scanReceipt">Skanna nytt kvitto</a>
+<a class="btn btn-primary btn-lg" data-bind="">Skapa nytt tomt kvitto</a>
+
+<form enctype="multipart/form-data" class="hide">
+    <input type="file" id="file-uploader" name="file" />
+</form>
+
+<h2>Varor</h2>
+<div data-bind="visible: shopItems().length == 0" class="alert alert-info"><strong>Du har inga varor...</strong> Klicka på Skanna nytt kvitto för att komma igång!</div>
+<table class="table">
+    <tbody data-bind="foreach: shopItems">
+        <tr>
+            <td data-bind="text: name"></td>
+            <td>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" data-bind="style: { width: progress + '%' }, text: progress + '%'">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Kvitton</h2>
+<table class="table">
+    <tbody data-bind="foreach: receipts">
+        <tr data-bind="click: function () { $root.selectedReceipt($data); }, css: { selected: $root.selectedReceipt() == $data }" class="selectable">
+            <td data-bind="text: shopName"></td>
+            <td data-bind="text: date"></td>
+            <td data-bind="text: total"></td>
+            <td><a data-bind="click: function () { $root.removeReceipt($data); }"><i class="glyphicon glyphicon-remove"></i></a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div data-bind="visible: $root.receiptItems().length > 0">
+    <h2>Kvittodetaljer</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tolkat namn</th>
+                <th>Antal</th>
+                <th>Totalt pris</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: receiptItems">
+            <tr>
+                <td><input type="text" data-bind="value: name, change: $parent.saveReceiptItem" /></td>
+                <td><input type="text" data-bind="value: quantity, change: $parent.saveReceiptItem" /></td>
+                <td><input type="text" data-bind="value: price, change: $parent.saveReceiptItem" /></td>
+                <td><a data-bind="click: function () { $root.removeReceiptItem($data); }"><i class="glyphicon glyphicon-remove"></i></a></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><a href="#" data-bind="click: addReceiptItem"><i class="glyphicon glyphicon-plus"></i></a></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
